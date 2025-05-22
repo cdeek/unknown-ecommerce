@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import http from 'http';
 import path from 'path';
+// import { watch } from './HMR'
 import { render } from '../client/render';
 
 import connectDb from './config/db';
@@ -29,7 +30,7 @@ const start = async () => {
   try { 
     // connect to dataBase
     // await connectDb(); 
-
+   
     // Middleware 
     app.use('/static', express.static(path.join(workspace, 'dist', 'static')));
     app.use(express.static(path.join(workspace, 'public')));

@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/",
+    "layoutPath": "/home/attacker/unknown-ecommerce/client/@pages/layout.tsx",
+    "children": [
+      {
+        "path": "/",
+        "pagePath": "/home/attacker/unknown-ecommerce/client/@pages/page.tsx"
+      },
+      {
+        "path": "/about",
+        "pagePath": "/home/attacker/unknown-ecommerce/client/@pages/about/page.tsx"
+      },
+      {
+        "path": "/landingPage",
+        "pagePath": "/home/attacker/unknown-ecommerce/client/@pages/landingPage/page.tsx"
+      }
+    ]
+  },
+  {
+    "path": "/admin",
+    "layoutPath": "/home/attacker/unknown-ecommerce/client/@admin/layout.tsx",
+    "children": []
+  },
+  {
+    "path": "*",
+    "pagePath": "/home/attacker/unknown-ecommerce/client/404.tsx",
+    "children": []
+  }
+]

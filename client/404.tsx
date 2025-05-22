@@ -1,6 +1,5 @@
-import { type FunctionComponent } from 'react';
 // Not Found Page Component
-export const NotFound: FunctionComponent = () => {
+export default function NotFound() {
   return <>
     <title> App | Not Found </title>
     <meta name='description' content='Page not found' />

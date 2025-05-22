@@ -1,4 +1,5 @@
-import { useState, type FunctionComponent } from 'react';
+
+import { useState } from 'react';
 // Home Page Component
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -6,7 +7,7 @@ export default function Home() {
     setCount((prev) => prev + 1);
   }
   return <>
-    <h1> Home Page </h1>
+    <h1> Admin Page </h1>
     <p> Counter: {count} </p>
     <button onClick={() => update()}>Update</button>
   </>;

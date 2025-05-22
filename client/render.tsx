@@ -1,18 +1,20 @@
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import Routes from './Routes';
+import buildRoutes from './@core/buildRoutes';
 
-export function render(req: any, res: any, crawler: boolean = false) {
+export function render(req, res, crawler = false) {
   const helmetContext = {};
   let didError = false;
 
   const { pipe, abort } = renderToPipeableStream(
     <StrictMode>
       <HelmetProvider context={helmetContext}>
-        <StaticRouter location={req.originalUrl}>
-          <Routes />
+        <StaticRouter location={req.originalUrl}> 
+          <Routes>
+            {buildRoutes()} 
+          </Routes>
         </StaticRouter>
       </HelmetProvider>
     </StrictMode>,
@@ -22,24 +24,28 @@ export function render(req: any, res: any, crawler: boolean = false) {
       onShellReady() {
         if (!crawler) {
           const { helmet } = helmetContext as any;
+         
           res.statusCode = didError ? 500 : 200;
           res.setHeader('Content-Type', 'text/html');
           res.write(`<!DOCTYPE html>
-<html ${helmet?.htmlAttributes?.toString() || ''}>
-<head>
-  <meta charset="UTF-8" />
-  ${helmet?.title?.toString() || ''}
-  ${helmet?.meta?.toString() || ''}
-  <link rel="canonical" href="${req.protocol}://${req.get('host')}${req.url}" />
-  <link rel="stylesheet" href="/static/style.css" />
-  ${helmet?.link?.toString() || ''}
-  ${helmet?.script?.toString() || ''}
-</head>
-<body ${helmet?.bodyAttributes?.toString() || ''}>`);
+            <html ${helmet?.htmlAttributes?.toString() || ''}>
+            <head>
+              <meta charset="UTF-8" />
+              ${helmet?.title?.toString() || ''}
+              ${helmet?.meta?.toString() || ''}
+              <link rel="canonical" href="${req.protocol}://${req.get('host')}${req.url}" />
+              <link rel="stylesheet" href="/static/style.css" />
+              ${helmet?.link?.toString() || ''}
+              ${helmet?.script?.toString() || ''}
+            </head>
+            <body ${helmet?.bodyAttributes?.toString() || ''}>`);
 
           pipe(res, { end: false });
           res.on('close', () => {
-            res.end(`</body></html>`);
+            res.end(` 
+             <p>Testing</p>
+            </body></html>
+            `);
           });
         }
       },
@@ -58,21 +64,24 @@ export function render(req: any, res: any, crawler: boolean = false) {
           res.statusCode = didError ? 500 : 200;
           res.setHeader('Content-Type', 'text/html');
           res.write(`<!DOCTYPE html>
-<html ${helmet?.htmlAttributes?.toString() || ''}>
-<head>
-  <meta charset="UTF-8" />
-  ${helmet?.title?.toString() || ''}
-  ${helmet?.meta?.toString() || ''}
-  <link rel="canonical" href="${req.protocol}://${req.get('host')}${req.url}" />
-  <link rel="stylesheet" href="/static/style.css" />
-  ${helmet?.link?.toString() || ''}
-  ${helmet?.script?.toString() || ''}
-</head>
-<body ${helmet?.bodyAttributes?.toString() || ''}>`);
+            <html ${helmet?.htmlAttributes?.toString() || ''}>
+            <head>
+              <meta charset="UTF-8" />
+              ${helmet?.title?.toString() || ''}
+              ${helmet?.meta?.toString() || ''}
+              <link rel="canonical" href="${req.protocol}://${req.get('host')}${req.url}" />
+              <link rel="stylesheet" href="/static/style.css" />
+              ${helmet?.link?.toString() || ''}
+              ${helmet?.script?.toString() || ''}
+            </head>
+            <body ${helmet?.bodyAttributes?.toString() || ''}>`);
 
           pipe(res, { end: false });
           res.on('close', () => {
-            res.end(`</body></html>`);
+            res.end(`
+             <p>Testing</p>
+            </body></html>
+            `);
           });
         }
       },

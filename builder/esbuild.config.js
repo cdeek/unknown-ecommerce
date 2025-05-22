@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { build, context } from 'esbuild'; 
-
+import generateManifest from './generateManifest.js';
+ 
 // Working dir
 const workspace = process.cwd(); 
 const isProd = process.env.NODE_ENV === "production";
@@ -39,6 +40,8 @@ export const clientConfig = {
 
 // build process
 async function bundle() {
+  await generateManifest();
+  
   if (isProd) {
     //serverContext Build server
     await build(serverConfig);

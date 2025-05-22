@@ -7,9 +7,9 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "build": "NODE_ENV=production node esbuild.config.js",
+    "build": "NODE_ENV=production node builder/esbuild.config.js",
     "start": "node dist/server.js",
-    "dev": "tsx watch server/index.ts & node esbuild.config.js",
+    "dev": "tsx watch server/index.ts & node builder/esbuild.config.js",
     "lint": "eslint 'client/**/*.ts'",
     "lint:fix": "eslint 'client/**/*.{ts,tsx}' --fix"
   },

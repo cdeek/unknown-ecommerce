@@ -1,16 +1,18 @@
 import { StrictMode } from 'react';
-import { hydrateRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import Routes from './Routes';
+import { hydrateRoot } from 'react-dom/client';
+import buildRoutes from './@core/buildRoutes';
 
-hydrateRoot(
-  document, 
-  <StrictMode>
-   <HelmetProvider>
-     <BrowserRouter>
-       <Routes />
-     </BrowserRouter>
-   </HelmetProvider> 
-  </StrictMode>,
+hydrateRoot(document,
+  <StrictMode> 
+    <HelmetProvider> 
+      <BrowserRouter> 
+        <Routes>
+         {buildRoutes()} 
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
+  </StrictMode>
 );
+
